@@ -74,13 +74,14 @@ function(beta.norm = myNorm$beta, pd=myLoad$pd, adjPVal=0.05, adjust.method="BH"
     if(ok)
     {
         results<- topTable(fit3, coef=1, number=dim(data)[1], adjust.method=adjust.method,p.value=adjPVal)
+        results$probeID=row.names(results)
         message("You have found ", dim(results)[1], " significant MVPs with a ",adjust.method," adjusted P-value below ", adjPVal)
         if(dim(results)[1]==0)
         {
             message("No bedfile will be generated for tophits but a full MVP list with all p-values is being saved")
         }else{
             
-            resList=data[which(row.names(data) %in% results$ID),]
+            resList=data[which(row.names(data) %in% results$probeID),]
             
             #join with annotation
             resList_anno<-data.frame(probe.features[match(row.names(resList),row.names(probe.features)),],resList)
@@ -100,7 +101,7 @@ function(beta.norm = myNorm$beta, pd=myLoad$pd, adjPVal=0.05, adjust.method="BH"
         }
         
         resultsALL<- topTable(fit3, coef=1, number=dim(data)[1], adjust.method=adjust.method,p.value=1)
-        resultsALL_anno<-data.frame(resultsALL,probe.features[match(resultsALL$ID,row.names(probe.features)),])
+        resultsALL_anno<-data.frame(resultsALL,probe.features[match(row.names(resultsALL),row.names(probe.features)),])
         
         control.data=data[,which(colnames(data) %in% controls$Sample_Name)]
         test.data=data[,which(colnames(data) %in% test$Sample_Name)]
@@ -112,10 +113,10 @@ function(beta.norm = myNorm$beta, pd=myLoad$pd, adjPVal=0.05, adjust.method="BH"
         colnames(data)[length(data)-2]=paste(groupLabel[1],"_AVG",sep="")
         colnames(data)[length(data)-1]=paste(groupLabel[2],"_AVG",sep="")
         data1=data[(length(data)-2):length(data)]
-        resultsALL_anno<-data.frame(resultsALL_anno,data1[match(resultsALL_anno$ID,row.names(data1)),])
+        resultsALL_anno<-data.frame(resultsALL_anno,data1[match(row.names(resultsALL_anno),row.names(data1)),])
         
-        colnames(resultsALL_anno)[1]="probeID"
-        row.names(resultsALL_anno)=resultsALL_anno$probeID
+        
+        resultsALL_anno$probeID=row.names(resultsALL_anno)
         fileName2=paste(resultsDir,"/MVP_ALL_",groupLabel[1],"vs",groupLabel[2],"_",adjust.method,"adjust.txt",sep="")
         write.table(resultsALL_anno, fileName2 ,quote=F,sep="\t",row.names=F)
         return(results.file=resultsALL_anno)
