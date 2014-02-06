@@ -6,12 +6,13 @@ function(beta=myLoad$beta, rgSet=myLoad$rgSet, pd=myLoad$pd,mset=myLoad$mset, sa
 	preprocessSWAN<-NA
 	rm(preprocessSWAN)
 	getBeta<-NA
-	rm(getBeta)
+	rm(getBeta)	
 	getM<-NA
 	rm(getM)
 	cwd=getwd()
-	data(probe.features)
-    
+    require(ChAMPdata)
+	data(probe.features)	
+
 	message("Normalizing data with ",norm)
 	if(fromIDAT==F)
 	{
@@ -41,19 +42,19 @@ function(beta=myLoad$beta, rgSet=myLoad$rgSet, pd=myLoad$pd,mset=myLoad$mset, sa
 		{
 			mset <-preprocessSWAN(rgSet, mset)
 			if(methValue=="B")
-			{
+			{	
 				beta.p = getBeta(mset, "Illumina")
-                
+
 			}else{beta.p = getM(mset)}
 		}else{
-            beta.p=beta
+        beta.p=beta
         }
         if(filterXY)
 		{
 			autosomes=probe.features[!probe.features$CHR %in% c("X","Y"), ]
-            beta.p=beta.p[row.names(beta.p) %in% row.names(autosomes), ]
+            beta.p=beta.p[row.names(beta.p) %in% row.names(autosomes), ]	
 		}
-	}
+	}	
 	if(norm=="BMIQ" | norm == "PBC")
 	{
 		### create design.v file
@@ -63,31 +64,31 @@ function(beta=myLoad$beta, rgSet=myLoad$rgSet, pd=myLoad$pd,mset=myLoad$mset, sa
  		probeInfo.lv  <- lapply(probeInfoALL.lv,mapto)
 		design.v <- probeInfo.lv[[2]]
 		
-		if(min(beta.p)==0)
+		if(min(beta.p, na.rm=TRUE)==0)
 		{
 			message("Zeros in your dataset have been replaced with 0.000001")
 			beta.p[beta.p==0]<-0.000001
 		}
-        
+
 		if(norm == "BMIQ")
  		{
 			newDir=paste(resultsDir,"Normalization",sep="/")
  			if(plotBMIQ){if(!file.exists(resultsDir)){dir.create(resultsDir)}
-                if(!file.exists(newDir))
-                {
-                    dir.create(newDir)
-                }}
+ 			if(!file.exists(newDir))
+			{
+				dir.create(newDir)
+			}}
  			design.v<-as.numeric(design.v)
  			bmiq=beta.p
 			hf.v <- vector();
-            
+
 			if(plotBMIQ){setwd(newDir)}
  			for(s in 1:ncol(beta.p))
  			{
 				sID=colnames(beta.p)[s]
 				beta.v <- beta.p[,s];
-                
-                
+
+
 				bmiq.o <- BMIQ(beta.v,design.v,doH=TRUE,nL=3,nfit=5000,niter=10,plots=plotBMIQ,sampleID=sID);
 				bmiq[,s] <- bmiq.o$nbeta;
 				hf.v[s] <- bmiq.o$hf;
@@ -105,13 +106,13 @@ function(beta=myLoad$beta, rgSet=myLoad$rgSet, pd=myLoad$pd,mset=myLoad$mset, sa
 		
 	}else{
 		if(norm!="SWAN"){
-            message("You have not selected a valid normalization method. No normalization will be preformed.")}
-    }
+		message("You have not selected a valid normalization method. No normalization will be preformed.")}
+		}
 	#else if(norm == "SubQ")
 	#{
-    #beta.norm=DoSubQ(beta.raw)
-    #add normalization to colname _subQ
-    
+		#beta.norm=DoSubQ(beta.raw)
+		#add normalization to colname _subQ
+
 	#}
     
 	totalProbes=dim(beta.p)[1]
@@ -140,8 +141,8 @@ function(beta=myLoad$beta, rgSet=myLoad$rgSet, pd=myLoad$pd,mset=myLoad$mset, sa
             betar_d<-dist(t(beta.p))
             plot(hclust(betar_d),main=main2,cex=0.8)
             dev.off()
-        }
-        
+    }
+
 	}
 	return(list(beta=beta.p))
 }
