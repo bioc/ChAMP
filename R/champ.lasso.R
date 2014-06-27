@@ -79,19 +79,20 @@ function(fromFile=FALSE, uploadResults=FALSE, uploadFile="limma.txt", limma, bet
                         myResults$pol.af.r >= mafPol.lower &
                         myResults$pol.af.r <= mafPol.upper,]
             }
-        myResults <- myResults[order(myResults$CHR, myResults$MAPINFO),]
-    
-        ###Probe spacing and quantile derivation
-    
-        myResults.split <- split(myResults$MAPINFO, paste(myResults$CHR, myResults$arm), drop=T) #split by chromosome & arm
-    
-        myResults.split.rownames <- split(rownames(myResults), paste(myResults$CHR, myResults$arm), drop=T) # rownames split by chromosome
-        probe.spacing <- lapply(myResults.split, diff)	# nearest probe calculations
-        up.down <- data.frame("upstream" = unlist(lapply(probe.spacing, function(x) c(0, x))),
-        "downstream" = unlist(lapply(probe.spacing, function(x) c(x,0))), row.names = unlist(myResults.split.rownames))
-        up.down$nrst.probe <- apply(up.down, 1, min)
-        rpl <- apply(up.down[which(up.down$nrst.probe == 0),],1,max)
-        up.down$nrst.probe <- replace(up.down$nrst.probe, which(up.down$nrst.probe == 0), rpl)
+ 
+    myResults <- myResults[order(myResults$CHR, myResults$MAPINFO),]
+ 
+    ###Probe spacing and quantile derivation
+ 
+    myResults.split <- split(myResults$MAPINFO, paste(myResults$CHR, myResults$arm), drop=T) #split by chromosome & arm
+ 
+    myResults.split.rownames <- split(rownames(myResults), paste(myResults$CHR, myResults$arm), drop=T) # rownames split by chromosome
+    probe.spacing <- lapply(myResults.split, diff)	# nearest probe calculations
+    up.down <- data.frame("upstream" = unlist(lapply(probe.spacing, function(x) c(0, x))),
+    "downstream" = unlist(lapply(probe.spacing, function(x) c(x,0))), row.names = unlist(myResults.split.rownames))
+    up.down$nrst.probe <- apply(up.down, 1, min)
+    rpl <- apply(up.down[which(up.down$nrst.probe == 0),],1,max)
+    up.down$nrst.probe <- replace(up.down$nrst.probe, which(up.down$nrst.probe == 0), rpl)
 
         myResults <- data.frame(myResults, "nrst.probe" = up.down$nrst.probe[match(rownames(myResults), rownames(up.down))])
 
