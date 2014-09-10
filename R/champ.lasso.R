@@ -216,7 +216,7 @@ function(fromFile=FALSE, uploadResults=FALSE, uploadFile="limma.txt", limma, bet
     
         message("You have found ",max(dmr.probes$dmr.no)," significant DMRs.")
             # resultsFile=resultsFile[c(1,30)]
-        tmp4=data.frame(tmp4,"deltaBeta"=resultsFile[match(tmp4$ID, resultsFile$probeID),c(30)])
+        tmp4=data.frame(tmp4,"deltaBeta"=resultsFile[match(tmp4$ID, resultsFile$probeID),c("logFC")])
  
         tmp4 <- tmp4[order(tmp4$dmr.no),]
 		if(!is.null(dmr.p))
