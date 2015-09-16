@@ -6,14 +6,14 @@
 ChAMP-Chip Analysis Methylation Pipeline
 }
 \description{
-A pipeline that enables pre-processing of 450k data, a selection of normalization methods and novel methods for downstream analysis including Probe Lasso DMR Hunter and Copy Number Aberration analysis.
+A pipeline that enables pre-processing of 450k data, a selection of normalisation methods and novel methods for downstream analysis including Probe Lasso DMR Hunter and Copy Number Alteration analysis. In addition there is a new method to help calculate hmC using BS and oxBS.
 }
 \details{
 \tabular{ll}{
 Package: \tab ChAMP\cr
 Type: \tab Package\cr
-Version: \tab 1.5.9\cr
-Date: \tab 2015-04-13\cr
+Version: \tab 1.6.2\cr
+Date: \tab 2015-09-16\cr
 License: \tab GPL-3\cr
 }
 The full analysis pipeline can be run with all defaults using champ.process()

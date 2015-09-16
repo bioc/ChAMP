@@ -2,12 +2,12 @@ Package: ChAMP
 Type: Package
 Title: Chip Analysis Methylation Pipeline for Illumina
         HumanMethylation450
-Version: 1.6.0
-Date: 2015-04-13
+Version: 1.6.2
+Date: 2015-09-16
 Description: The package includes quality control metrics, a selection
-        of normalization methods and novel methods to identify
+        of normalisation methods and novel methods to identify
         differentially methylated regions and to highlight copy number
-        aberrations. In addition their is a method to help calculate hmC using BS and oxBS samples.
+        alterations. In addition there is a method to help calculate hmC using BS and oxBS samples.
 Authors@R: c(person("Tiffany", "Morris", role = c("cre", "aut"),
                     email = "champ450k@gmail.com"),
              person("Lee", "Butcher", role = "ctb"),
