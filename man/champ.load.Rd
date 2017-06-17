@@ -5,10 +5,11 @@
     Upload of raw HumanMethylation450K or HumanMethylationEPIC data from IDAT files.
 }
 \description{
-    Function that loads data from IDAT files to calculate intensity. Some kinds of filtering will be conducted as well such as unqualied CpGs, SNP, multihit sites, and XY chromosomes related CpGs.
+    Function that loads data from IDAT files to calculate intensity. Some kinds of filtering will be conducted as well such as unqualied CpGs, SNP, multihit sites, and XY chromosomes related CpGs. In new version champ.load() function, we provided a new loading method, which is coded by ChAMP group. User may set "method" parameter as "minfi" to use old minfi way. Note that new "ChAMP" would NOT return rgSet and mset as "minfi" object, only pain matrix or data frame would be returned, which makes it easier to intepret the result, but it also means current ChAMP can not works on "SWAN" and "FunctionNormalization" method in champ.norm(), you can still use "BMIQ" and "PBC" method though.
 }
 \usage{
 champ.load(directory = getwd(),
+           method="ChAMP",
            methValue="B",
            autoimpute=TRUE,
            filterDetP=TRUE,
@@ -28,6 +29,7 @@ champ.load(directory = getwd(),
 \arguments{
 	
 	\item{directory}{Location of IDAT files, default is current working directory.(default = getwd())}
+	\item{method}{Method to load data, "ChAMP" method is newly provided by ChAMP group, while "minfi" is old minfi way.(default = "ChAMP")}
 	\item{methValue}{Indicates whether you prefer m-values M or beta-values B. (default = "B")}
     \item{autoimpute}{If after filtering (or not do filtering) there are NA values in it, should impute.knn(k=3) should be done for the rest NA?}
 	\item{filterDetP}{If filter = TRUE, then probes above the detPcut will be filtered out.(default = TRUE)}
