@@ -208,7 +208,6 @@ myLoad <- champ.load(testDir)
 
 Alternatively, the user can load the data from the dataset object testDataSet in ChAMPdata package, using:
 
-
 ```{r eval=TRUE}
 data(testDataSet)
 ```
@@ -594,15 +593,6 @@ head(myGSEA$DMR)
 # Above is the GSEA result for differential methylation regions.
 # Too many information may be printed, so we are not going to show the result here.
 ```
-
-### Empirical Bayes GSEA method
-
-As we introduced before, ChAMP now incorporated a new method called "ebayes" in champ.GSEA(), this method is different from most other GSEA method because it does not need DMP or DMR information. Thus actually users could run this method separately from champ.GSEA(). We provided champ.ebay() function in ChAMP, for users who want to directly do GSEA from normalized beta matrix and phenotype. Like below:
-
-```{r eval=FALSE}
-myebayGSEA <- champ.ebGSEA(beta=myNorm,pheno=myLoad$pd$Sample_Group,arraytype="450K")
-```
-This is a promising GSEA method, without bias from number of CpGs enriched in genes, or significant level of CpGs.
 
 
 ## Copy Number Variation
