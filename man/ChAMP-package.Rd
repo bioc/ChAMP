@@ -47,7 +47,6 @@ Yuan Tian, Tiffany Morris, Lee Stirling, Andy Feber, Andrew Teschendorff, Ankur 
     myDMR <- champ.DMR()
     myBlock <- champ.Block()
     myGSEA <- champ.GSEA()
-    myEpiMod <- champ.EpiMod()
     myCNA <- champ.CNA()
     myRefbase <- champ.refbase() ### for blood sample only
 

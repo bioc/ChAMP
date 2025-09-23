@@ -4,7 +4,7 @@
     Do GSEA for DMP, DMR and other methylation data related results.
 }
 \description{
-    This function would do GSEA on the results of champ functions like DMP and DMR. However users may also add individual CpGs and genes in it. There are three method are incoporated into champ.GSEA function here. One is old Fisher Exact Test method, which will used information downloaded from MSigDB and do fisher exact test to calculated the enrichment status for each pathways. And another method is "gometh" method, which will use missMethyl package to correct the inequality between number of genes and number of CpGs, then do GSEA. The third and newest method is Empirical Bayes (ebayes) method, which does not need DMP or DMR information, but would directly calculate global test across all CpGs then do GSEA. User may assign parameter "method" as "ebayes", "gometh" or "fisher" to choose which method they want to use.
+    This function would do GSEA on the results of champ functions like DMP and DMR. However users may also add individual CpGs and genes in it. There are three method are incoporated into champ.GSEA function here. One is old Fisher Exact Test method, which will used information downloaded from MSigDB and do fisher exact test to calculated the enrichment status for each pathways.
 }
 
 \usage{
@@ -28,7 +28,7 @@
     \item{CpGlist}{Apart from previous parameters, if you have any other CpGs list want to do GSEA, you can input them here as a list. (default = NULL)}
     \item{Genelist}{Apart from previous parameters, if you have any other Gene list want to do GSEA. you can inpute them here as a list. (default = NULL)}
     \item{pheno}{If use ebayes method, user needs to provide phenotype information to conduct global test. (default = myLoad$pd$Sample_Group)}
-    \item{method}{Which method would be used to do GSEA?"gometh","fisher", or"ebayes". "ebayes" is our new unbias GSEA method, you could refer to champ.ebGSEA() function to know more. (default = "fisher")}
+    \item{method}{Which method would be used to do GSEA?"gometh","fisher". (default = "fisher")}
     \item{arraytype}{Which kind of array your data set is? (default = "450K")}
     \item{Rplot}{If gometh method was chosen, should Probability Weight plot will be plotted. More information please check gometh package. (default = TRUE)}
     \item{adjPval}{Adjusted p value cutoff for all calculated GSEA result. (default = 0.05)}
@@ -51,20 +51,6 @@
     \item{numInCat}{Numbers of all genes related to this pathway.}
     \item{term}{The short explaination for this pathway.}
     \item{ontology over_represented_adjPvalue}{The ajusted over representing p value with "BH" method. User may used this one to select qualitied Pathways.}
-
-    For ebayes method:
-
-    There are three list:
-      GSEA contains all pathway's GSEA result in one list, and only significant pathways GSEA in another.
-      EnrichedGene: contains enriched genes in each pathways.
-      gtResult: global test result for each gene.
-
-    Below are columns for list GSEA.
-    \item{nREP}{Number of genes enriched in this pathway.}
-    \item{AUC}{Area under curve from wilcox test.}
-    \item{P(WT)}{P value detected for each pathway from Wilcox Test.}
-    \item{P(KPMT)}{P value from Known Population Median Test}
-    \item{adjP}{Adjusted P value for each pathway, using BH method.}
 }
 
 \examples{

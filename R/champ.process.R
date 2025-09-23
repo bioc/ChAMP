@@ -26,7 +26,6 @@ champ.process <- function(runload=TRUE,
                           #---champ.GSEA parameters below---#
                           runGSEA=TRUE,
                           #---champ.EpiMod parameters below---#
-                          runEpiMod=TRUE,
                           #---champ.CNA parameters below---#
                           runCNA=TRUE,
                           control=TRUE,
@@ -318,35 +317,6 @@ champ.process <- function(runload=TRUE,
         gc()
         CHAMP.RESULT[["champ.GSEA"]] <- myGSEA
         message("Run champ.GSEA() Over!\n")
-    }
-
-    ### Applying champ.EpiMod() function.
-    if(runEpiMod)
-    {
-        message("\nRunning champ.EpiMod()...")
-
-        myEpiMod <- champ.EpiMod(beta=myNorm,
-                                 pheno=tmppd$Sample_Group,
-                                 nseeds=100,
-                                 gamma=0.5,
-                                 nMC=1000,
-                                 sizeR.v=c(1,100),
-                                 minsizeOUT=10,
-                                 resultsDir=paste(resultsDir,"/CHAMP_EpiMod/",sep=""),
-                                 PDFplot=PDFplot,
-                                 arraytype=arraytype)
-
-
-        if(saveStepresults)
-        {
-            save(myEpiMod,file=paste(resultsDir,"/myEpiMod.rda",sep=""))
-            message("champ.EpiMod()'s result \"myEpiMod\" has been saved in ",resultsDir," as \"myEpiMod.rda.\"")
-            if(PDFplot==TRUE)
-                message("Plots of champ.EpiMod() have been saved in ",paste(resultsDir,"/CHAMP_EpiMod/",sep=""))
-        }
-        gc()
-        CHAMP.RESULT[["champ.EpiMod"]] <- myEpiMod
-        message("Run champ.EpiMod() Over!\n")
     }
 
     ### Applying champ.CNA() function.

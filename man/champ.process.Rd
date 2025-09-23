@@ -37,7 +37,6 @@ This function allows the user to run the entire pipeline in one function. Argume
                   #---champ.GSEA parameters below---#
                   runGSEA=TRUE,
                   #---champ.EpiMod parameters below---#
-                  runEpiMod=TRUE,
                   #---champ.CNA parameters below---#
                   runCNA=TRUE,
                   control=TRUE,
@@ -75,7 +74,6 @@ This function allows the user to run the entire pipeline in one function. Argume
     \item{DMRmethod}{Which DMR method should be applied by champ.DMR()? (default = TRUE)}
     \item{runBlock}{If champ.Block() should be run? (default = TRUE)}
     \item{runGSEA}{If champ.GSEA() should be run? (default = TRUE)}
-    \item{runEpiMod}{If champ.EpiMod() should be run? (default = TRUE)}
     \item{runCNA}{If champ.CNA() should be run? (default = TRUE)}
     \item{control}{If champ.CNA() should be calculate copy number variance between case and control? (The other option for champ.CNA() is calculate copy number variance for each sample to the averaged value). (default = TRUE)}
     \item{controlGroup}{Which pheno should be treated as control group while running champ.CNA().(default = "champCtls")}

@@ -32,7 +32,6 @@ import(rmarkdown)
 import(missMethyl)
 import(Hmisc)
 import(globaltest)
-import(kpmt,"kpmt")
 import(ggplot2)
 
 importFrom("utils", "read.csv")
@@ -67,7 +66,6 @@ export(
 	champ.DMR, 
 	champ.Block, 
 	champ.GSEA, 
-    champ.ebGSEA,
     champ.CNA,
     champ.refbase,
     DMP.GUI,
