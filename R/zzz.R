@@ -11,9 +11,5 @@
 "
     mes2 <- "    If you have any question or suggestion about ChAMP, please email to champ450k@gmail.com.\n    Thank you for citating ChAMP:\n\n    Yuan Tian, Tiffany J Morris, Amy P Webster, Zhen Yang, Stephan Beck, Andrew Feber, Andrew E Teschendorff; ChAMP: updated methylation analysis pipeline for Illumina BeadChips, Bioinformatics, btx513, https://doi.org/10.1093/bioinformatics/btx513\n     --------------------------\n"
     packageStartupMessage(">> Package version 2.21.1 loaded <<\n",mes,mes2)
-    msg <- sprintf(
-        "Package '%s' is deprecated and will be removed from Bioconductor
-         version %s", pkgname, "3.25")
-    .Deprecated(msg=paste(strwrap(msg, exdent=2), collapse="\n"))
 }
 
